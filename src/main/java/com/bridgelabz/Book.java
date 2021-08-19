@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
 import java.util.*;
 
 public class Book {
@@ -15,7 +16,7 @@ public class Book {
         printAction();
         Scanner s = new Scanner(System.in);
         while (!quite) {
-            System.out.println("\n Enter Option: (1-6 to show available options)");
+            System.out.println("\n Enter action: (6 to show available actions)");
 
             int action = s.nextInt();
             switch (action) {
@@ -25,7 +26,7 @@ public class Book {
                     break;
 
                 case 1:
-         //           PhoneNumber.printContacts();
+                    printContactList();
                     break;
 
                 case 2:
@@ -53,6 +54,26 @@ public class Book {
     }
 
     private static void removeContact() {
+        System.out.println("If you wish to delete the contact press 1");
+        Scanner s = new Scanner(System.in);
+        int entry = s.nextInt();
+        if (entry == 1) {
+            System.out.println("Enter the name to delete");
+            String name = s.next();
+            if (contactlist.size() > 0) {
+                for (int i = 0; i < contactlist.size(); i++) {
+                    Contact v = contactlist.get(i);
+                    if (name.equals(v.firstname)) {
+                        contactlist.remove(i);
+                    } else
+                        System.out.println("name not available to edit");
+
+                }
+            } else {
+                System.out.println("No contacts");
+            }
+        }
+
     }
 
     private static void addNewContact() {
