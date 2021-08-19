@@ -2,158 +2,131 @@ package com.bridgelabz;
 
 import java.util.ArrayList;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Book {
     static ArrayList<Contact> contactlist = new ArrayList<Contact>();
 
-    public static void main(String[] args) {
-        start();
-    }
-    public static void start() {
-        boolean quite = false;
-        startPhone();
-        printAction();
-        Scanner s=new Scanner(System.in);
-        while (!quite) {
-            System.out.println("\n Enter action: (6 to show available actions)");
+    /* This method is used to delete the contact if exists in the contact book
+    @param takes firstname as input
+    @return boolean value true if removed else false
+     */
 
-            int action =s.nextInt();
-            switch (action) {
-                case 0:
-                    System.out.println("\n Shuting down .. ");
-                    quite = true;
-                    break;
-
-                case 1:
-                    printContactList();
-                    break;
-
-                case 2:
-                    addNewContact();
-                    break;
-
-                case 3:
-                    updateContact();
-                    break;
-                case 4:
-                    removeContact();
-                    break;
-                case 5:
-                    queryContact();
-                    break;
-                case 6:
-                    printAction();
-                    break;
-
-
-            }
-
-
-
-        }
-    }
-    private static void removeContact() {
-        System.out.println("If you wish to delete the contact press 1");
-        Scanner s = new Scanner(System.in);
-        int entry = s.nextInt();
-        if (entry == 1) {
-            System.out.println("Enter the name to delete");
-            String name = s.next();
-            if (contactlist.size() > 0) {
-                for (int i = 0; i < contactlist.size(); i++) {
-                    Contact v = contactlist.get(i);
-                    if (name.equals(v.firstname)) {
-                        contactlist.remove(i);
-                    } else
-                        System.out.println("name not available to edit");
-
+    public boolean removeContact(String name) {
+        if (contactlist.size() > 0) {
+            for (int i = 0; i < contactlist.size(); i++) {
+                Contact contact = contactlist.get(i);
+                if ((contact.firstname + contact.lastname).equals(name)) {
+                    contactlist.remove(i);
+                    return true;
+                } else {
+                    System.out.println("name not available to edit");
+                    return false;
                 }
             }
-            else{
-                System.out.println("No contacts");
-            }
-        }
+        } else {
+            System.out.println("No contacts");
 
+        }
+        return false;
     }
 
-    private static void addNewContact() {
-        AddressBook address = new AddressBook();
-        Contact temp=address.CreateContact();
-        int bit_add=0;
-        if (contactlist.size() > 0) {
-            int i=0;
-            while( i < contactlist.size() && bit_add==0){
-                Contact v = contactlist.get(i);
+    /* This method is used to add the contact, if already exists in the contact book
+    not adding else adding
+    @param takes contact input
+    @return boolean value true if added else false
+     */
 
-                if ((temp.firstname+temp.lastname).equals(v.firstname+v.lastname)) {
-                    bit_add=1;
+    public boolean addNewContact(Contact contact) {
+        int bit_add = 0;
+        if (contactlist.size() > 0) {
+            int i = 0;
+            while (i < contactlist.size() && bit_add == 0) {
+                Contact contactPresent = contactlist.get(i);
+                if (contact.equals(contactPresent)) {
+                    bit_add = 1;
                     System.out.println("name available Present duplicate not allowed");
+                    return false;
                 }
                 i++;
-
             }
-            if(bit_add==0){
-                contactlist.add(temp);
+            if (bit_add == 0) {
+                contactlist.add(contact);
+                return true;
             }
         }
-        else {
-            contactlist.add(temp);
-        }
-
+        contactlist.add(contact);
+        return true;
     }
 
-    private static void updateContact() {
-        System.out.println("If you wish to edit the contact press 1");
-        Scanner s = new Scanner(System.in);
-        int entry = s.nextInt();
-        if (entry == 1) {
-            System.out.println("Enter the name to edit");
-            String name = s.next();
+    /* This method is used to update the contact,only  if exists in the contact book
+    @param takes String oldname and newname as an input
+    @return boolean value true if updated else false
+     */
+
+    public boolean updateContact(Contact oldcontact, Contact newContact) {
+        boolean check = checkContactExtists(oldcontact);
+        if (check == false) {
             if (contactlist.size() > 0) {
                 for (int i = 0; i < contactlist.size(); i++) {
-                    Contact v = contactlist.get(i);
-                    if (name.equals(v.firstname)) {
-                        System.out.println("name available to edit");
-                        System.out.println("Enter the new name to edit");
-                        String newName = s.next();
-                        v.firstname = newName;
-                    } else
-                        System.out.println("name not available to edit");
-
+                    if (contactlist.get(i).equals(oldcontact)) {
+                        contactlist.add(i, newContact);
+                        return true;
+                    }
                 }
-            }
-            else{
-                System.out.println("No contacts");
+            } else {
+                System.out.println("name not available to edit");
+                return false;
             }
         }
+        System.out.println("No contacts");
+        return false;
     }
 
-    private static void queryContact() {
-    }
+    /* This method is used to print the contacts
+     */
 
-    private static void startPhone() {
-        System.out.println("Starting Phone . . .");
-    }
-    private static void printAction() {
-        System.out.println("\nAvailable actions:\npress");
-        System.out.println("0 - to shutDown\n" +
-                "1 - to print contacts\n"+
-                "2 - to add a new contact\n"+
-                "3 - to update an existing contact\n"+
-                "4 - to remove and existing contact\n"+
-                "5 - query for existing contact\n"+
-                "6 - to print a list of available actions.");
-        System.out.println("Choose Your Action: ");
-    }
-
-
-    private static void printContactList() {
+    public void printContactList() {
         System.out.println("You have " + contactlist.size() + " contacts in your list");
         for (int i = 0; i < contactlist.size(); i++) {
-            Contact v= contactlist.get(i);
-            System.out.println(v.firstname+"\n"+v.lastname+"\n"+v.PhoneNumber+"\n"+v.email+"\n"+v.city+"\n"+v.state+"\n"+v.zip);
-
-
+            Contact v = contactlist.get(i);
+            System.out.println(v.firstname + "\n" + v.lastname + "\n" + v.PhoneNumber + "\n" + v.email + "\n" + v.city + "\n" + v.state + "\n" + v.zip);
         }
     }
+
+    /* This method is used to search the contact,only  if exists in the contact book
+    @param takes contacts
+    @return boolean value true if present else false
+     */
+
+    public boolean checkContactExtists(Contact contact) {
+        if (contactlist.size() > 0) {
+            int i = 0;
+            while (i < contactlist.size()) {
+                Contact contactPresent = contactlist.get(i);
+                if (contact.equals(contactPresent)) {
+                    System.out.println("Contact Exists");
+                    return true;
+                }
+                i++;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /* This method is used to search the contact,only  if exists in the contact book
+    @param takes contacts
+    @return contact value true if present else null
+     */
+
+    public Contact checkContactExistsStream(Contact contact) {
+        return contactlist.stream().filter(contac -> contac.equals(contact))
+                .findAny()
+                .orElse(null);
+    }
+
+
 }

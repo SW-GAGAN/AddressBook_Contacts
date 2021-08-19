@@ -35,8 +35,16 @@ public class AddressBook {
         return contact;
     }
 
-    public void alterContactUsingName(String name) {
-
+    public Contact createContact(String firstname, String lastname, String city, String state, int zip, String mob, String email) {
+        Contact contact = new Contact();
+        contact.firstname = firstname;
+        contact.lastname = lastname;
+        contact.city = city;
+        contact.state = state;
+        contact.zip = zip;
+        contact.PhoneNumber = mob;
+        contact.email = email;
+        return contact;
 
     }
 }
