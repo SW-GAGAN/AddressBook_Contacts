@@ -1,6 +1,8 @@
 package com.bridgelabz;
-
+2
 import java.util.ArrayList;
+import java.util.*;
+
 import java.util.*;
 
 public class Book {
@@ -9,16 +11,15 @@ public class Book {
     public static void main(String[] args) {
         start();
     }
-
     public static void start() {
         boolean quite = false;
         startPhone();
         printAction();
-        Scanner s = new Scanner(System.in);
+        Scanner s=new Scanner(System.in);
         while (!quite) {
             System.out.println("\n Enter action: (6 to show available actions)");
 
-            int action = s.nextInt();
+            int action =s.nextInt();
             switch (action) {
                 case 0:
                     System.out.println("\n Shuting down .. ");
@@ -50,9 +51,9 @@ public class Book {
             }
 
 
+
         }
     }
-
     private static void removeContact() {
         System.out.println("If you wish to delete the contact press 1");
         Scanner s = new Scanner(System.in);
@@ -69,7 +70,8 @@ public class Book {
                         System.out.println("name not available to edit");
 
                 }
-            } else {
+            }
+            else{
                 System.out.println("No contacts");
             }
         }
@@ -101,7 +103,8 @@ public class Book {
                         System.out.println("name not available to edit");
 
                 }
-            } else {
+            }
+            else{
                 System.out.println("No contacts");
             }
         }
@@ -113,15 +116,14 @@ public class Book {
     private static void startPhone() {
         System.out.println("Starting Phone . . .");
     }
-
     private static void printAction() {
         System.out.println("\nAvailable actions:\npress");
         System.out.println("0 - to shutDown\n" +
-                "1 - to print contacts\n" +
-                "2 - to add a new contact\n" +
-                "3 - to update an existing contact\n" +
-                "4 - to remove and existing contact\n" +
-                "5 - query for existing contact\n" +
+                "1 - to print contacts\n"+
+                "2 - to add a new contact\n"+
+                "3 - to update an existing contact\n"+
+                "4 - to remove and existing contact\n"+
+                "5 - query for existing contact\n"+
                 "6 - to print a list of available actions.");
         System.out.println("Choose Your Action: ");
     }
@@ -130,8 +132,8 @@ public class Book {
     private static void printContactList() {
         System.out.println("You have " + contactlist.size() + " contacts in your list");
         for (int i = 0; i < contactlist.size(); i++) {
-            Contact v = contactlist.get(i);
-            System.out.println(v.firstname + "\n" + v.lastname + "\n" + v.PhoneNumber + "\n" + v.email + "\n" + v.city + "\n" + v.state + "\n" + v.zip);
+            Contact v= contactlist.get(i);
+            System.out.println(v.firstname+"\n"+v.lastname+"\n"+v.PhoneNumber+"\n"+v.email+"\n"+v.city+"\n"+v.state+"\n"+v.zip);
 
 
         }
