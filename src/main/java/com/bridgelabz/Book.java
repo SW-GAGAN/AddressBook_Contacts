@@ -1,10 +1,10 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Book {
     static ArrayList<Contact> contactlist = new ArrayList<Contact>();
@@ -76,7 +76,9 @@ public class Book {
                         return true;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 System.out.println("name not available to edit");
                 return false;
             }
@@ -122,10 +124,32 @@ public class Book {
     @return contact value true if present else null
      */
 
-    public Contact checkContactExistsStream(Contact contact) {
+    public Contact checkContactExistsStream(Contact contact){
         return contactlist.stream().filter(contac -> contac.equals(contact))
                 .findAny()
                 .orElse(null);
+    }
+
+        /* This method is used to search the contact by name of city, only  if exists in the contact book
+    @param takes city
+    @return list of contact value true
+     */
+
+    public List<Contact> checkContactByCityStream(String sample_city) {
+        List<Contact> contactsByCity = contactlist.stream().filter(contac -> contac.city.equals(sample_city))
+                .collect(Collectors.toList());
+        return contactsByCity;
+    }
+
+    /* This method is used to search the contact by name of state, only  if exists in the contact book
+    @param takes state
+    @return list of contact value true
+     */
+
+    public List<Contact> checkContactByStateStream(String sample_state) {
+        List<Contact> contactsByState = contactlist.stream().filter(contac -> contac.state.equals(sample_state))
+                .collect(Collectors.toList());
+        return contactsByState;
     }
 
 

@@ -1,11 +1,8 @@
 package com.bridgelabz;
 
 import java.util.*;
-
 public class AddressBook {
 
-    /* @Description - To create a contacts in address book with first name, last name, address, city, state,
-     * zip,mobile number.*/
 
     public Contact CreateContact() {
         Contact contact = new Contact();
@@ -35,16 +32,8 @@ public class AddressBook {
         return contact;
     }
 
-    public Contact createContact(String firstname, String lastname, String city, String state, int zip, String mob, String email) {
-        Contact contact = new Contact();
-        contact.firstname = firstname;
-        contact.lastname = lastname;
-        contact.city = city;
-        contact.state = state;
-        contact.zip = zip;
-        contact.PhoneNumber = mob;
-        contact.email = email;
-        return contact;
+    public void alterContactUsingName(String name) {
+
 
     }
 }
