@@ -1,42 +1,39 @@
 package com.bridgelabz;
 
-import java.util.Scanner;
-
-/* @Description - To create a contacts in address book with first name, last name, address, city, state,
- * zip,mobile number.*/
-
+import java.util.*;
 public class AddressBook {
-    Contacts contacts;
-    /* @Description- Add new contacts in address book  */
-    private void addContacts() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("enter the first name");
-        String firstName = scanner.nextLine();
-        System.out.println("enter the last name");
-        String lastName = scanner.nextLine();
-        System.out.println("enter the address");
-        String address = scanner.nextLine();
-        System.out.println("enter the state");
-        String state = scanner.nextLine();
-        System.out.println("enter the city");
-        String city = scanner.nextLine();
-        System.out.println("enter the zip code");
-        int zipCode = scanner.nextInt();
-        System.out.println("enter the mobile number");
-        long number = scanner.nextLong();
-        System.out.println("enter email-id");
-        String email = scanner.next();
-        contacts = new Contacts(firstName, lastName, address, state, city, zipCode, number, email);
-        System.out.println("contact successfully added");
+
+
+    public Contact CreateContact() {
+        Contact contact = new Contact();
+        Scanner s = new Scanner(System.in);
+        System.out.println("Please enter the below details");
+        System.out.println("Firstname");
+        String fname = s.next();
+        contact.firstname = fname;
+        System.out.println("lastname");
+        String lname = s.next();
+        contact.lastname = lname;
+        System.out.println("city");
+        String city = s.next();
+        contact.city = city;
+        System.out.println("state");
+        String state = s.next();
+        contact.state = state;
+        System.out.println("zip");
+        int zip = s.nextInt();
+        contact.zip = zip;
+        System.out.println("phoneNumber");
+        String phoneNumber = s.next();
+        contact.PhoneNumber = phoneNumber;
+        System.out.println("email");
+        String email = s.next();
+        contact.email = email;
+        return contact;
     }
-    @Override
-    public String toString(){
-        return contacts.toString();
-    }
-    public static void main(String[] args) {
-        System.out.println("Welcome to address book system program");
-        AddressBook addressBook = new AddressBook();
-        addressBook.addContacts();
-        System.out.println(addressBook.toString());
+
+    public void alterContactUsingName(String name) {
+
+
     }
 }
